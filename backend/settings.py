@@ -16,13 +16,16 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+STATIC_ROOT = BASE_DIR / "static"
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-m9k#2@x8v$n7p&q4w!z5r3t6y9u$b&e9r5t8y7u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.43.35', '0.0.0.0']
+ALLOWED_HOSTS = ['180.149.196.86','localhost', '127.0.0.1', '192.168.43.35', '0.0.0.0']
 
 
 # Application definition
