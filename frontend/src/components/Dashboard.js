@@ -16,7 +16,8 @@ const Dashboard = () => {
       const token = localStorage.getItem('token');
       const response = await apiService.get('/dashboard/', {
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'Cache-Control': 'no-cache'
         }
       });
       setAvis(response.data);
@@ -108,7 +109,12 @@ const Dashboard = () => {
       </div>
 
       <div className="avis-list">
-        <h2>Derniers Avis ({avis.length})</h2>
+        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px'}}>
+          <h2>Derniers Avis ({avis.length})</h2>
+          <button onClick={fetchAvis} style={{padding: '8px 16px', background: '#667eea', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer'}}>
+            Actualiser
+          </button>
+        </div>
         {avis.length === 0 ? (
           <div className="no-avis">Aucun avis pour le moment</div>
         ) : (
@@ -149,6 +155,24 @@ const Dashboard = () => {
                   <p>{item.suggestions}</p>
                 </div>
               )}
+
+              <div className="avis-discovery">
+                <h4>Comment a connu la boutique:</h4>
+                <div className="discovery-tags">
+                  {item.connu_facebook === true && <span className="discovery-tag">Facebook</span>}
+                  {item.connu_instagram === true && <span className="discovery-tag">Instagram</span>}
+                  {item.connu_tiktok === true && <span className="discovery-tag">TikTok</span>}
+                  {item.connu_amis === true && <span className="discovery-tag">Amis/Entourage</span>}
+                  {item.connu_autres === true && (
+                    <span className="discovery-tag">
+                      Autres{item.connu_autres_precision ? ` (${item.connu_autres_precision})` : ''}
+                    </span>
+                  )}
+                  {(item.connu_facebook !== true && item.connu_instagram !== true && item.connu_tiktok !== true && item.connu_amis !== true && item.connu_autres !== true) && (
+                    <span className="discovery-tag none">Non spécifié</span>
+                  )}
+                </div>
+              </div>
             </div>
           ))
         )}

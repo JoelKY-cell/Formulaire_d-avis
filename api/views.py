@@ -147,6 +147,22 @@ def submit_avis(request):
         notes_donnees = [n for n in notes if n > 0]
         moyenne = sum(notes_donnees) / len(notes_donnees) if notes_donnees else 0
         
+        # Comment a connu la boutique
+        connu_par = []
+        if hasattr(avis, 'connu_facebook') and avis.connu_facebook:
+            connu_par.append('Facebook')
+        if hasattr(avis, 'connu_instagram') and avis.connu_instagram:
+            connu_par.append('Instagram')
+        if hasattr(avis, 'connu_tiktok') and avis.connu_tiktok:
+            connu_par.append('TikTok')
+        if hasattr(avis, 'connu_amis') and avis.connu_amis:
+            connu_par.append('Amis/Entourage')
+        if hasattr(avis, 'connu_autres') and avis.connu_autres:
+            precision = getattr(avis, 'connu_autres_precision', '') or ''
+            autres_text = f"Autres ({precision})" if precision else "Autres"
+            connu_par.append(autres_text)
+        connu_text = ', '.join(connu_par) if connu_par else 'Non spécifié'
+        
         email_content = f"""
 NOUVEL AVIS CLIENT - {avis.date_creation.strftime('%d/%m/%Y à %H:%M')}
 
@@ -155,6 +171,9 @@ Note moyenne: {moyenne:.1f}/5 ({len(notes_donnees)} critères évalués)
 
 === DÉTAIL DES ÉVALUATIONS ===
 {criteres_text}
+
+=== COMMENT A CONNU LA BOUTIQUE ===
+{connu_text}
 
 === SUGGESTIONS ===
 {avis.suggestions or 'Aucune suggestion fournie'}

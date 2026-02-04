@@ -9,7 +9,13 @@ const AvisForm = () => {
     rapidite: 0,
     rapport_qualite_prix: 0,
     satisfaction_globale: 0,
-    suggestions: ''
+    suggestions: '',
+    connu_facebook: false,
+    connu_instagram: false,
+    connu_tiktok: false,
+    connu_amis: false,
+    connu_autres: false,
+    connu_autres_precision: ''
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,6 +35,20 @@ const AvisForm = () => {
     }));
   };
 
+  const handleCheckboxChange = (field) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: !prev[field]
+    }));
+  };
+
+  const handlePrecisionChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      connu_autres_precision: e.target.value
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -42,7 +62,13 @@ const AvisForm = () => {
         rapidite: 0,
         rapport_qualite_prix: 0,
         satisfaction_globale: 0,
-        suggestions: ''
+        suggestions: '',
+        connu_facebook: false,
+        connu_instagram: false,
+        connu_tiktok: false,
+        connu_amis: false,
+        connu_autres: false,
+        connu_autres_precision: ''
       });
       
       setTimeout(() => setShowSuccess(false), 5000);
@@ -60,7 +86,13 @@ const AvisForm = () => {
           rapidite: 0,
           rapport_qualite_prix: 0,
           satisfaction_globale: 0,
-          suggestions: ''
+          suggestions: '',
+          connu_facebook: false,
+          connu_instagram: false,
+          connu_tiktok: false,
+          connu_amis: false,
+          connu_autres: false,
+          connu_autres_precision: ''
         });
         setTimeout(() => setShowSuccess(false), 5000);
       }
@@ -164,6 +196,66 @@ const AvisForm = () => {
             placeholder="Partagez vos idées pour nous aider à nous améliorer..."
             rows="4"
           />
+        </div>
+
+        <div className="discovery-section">
+          <h3>Comment avez-vous connu la boutique Styl'Ange ?</h3>
+          <div className="checkbox-group">
+            <label className="checkbox-item">
+              <input
+                type="checkbox"
+                checked={formData.connu_facebook}
+                onChange={() => handleCheckboxChange('connu_facebook')}
+              />
+              <span>Facebook</span>
+            </label>
+            
+            <label className="checkbox-item">
+              <input
+                type="checkbox"
+                checked={formData.connu_instagram}
+                onChange={() => handleCheckboxChange('connu_instagram')}
+              />
+              <span>Instagram</span>
+            </label>
+            
+            <label className="checkbox-item">
+              <input
+                type="checkbox"
+                checked={formData.connu_tiktok}
+                onChange={() => handleCheckboxChange('connu_tiktok')}
+              />
+              <span>TikTok</span>
+            </label>
+            
+            <label className="checkbox-item">
+              <input
+                type="checkbox"
+                checked={formData.connu_amis}
+                onChange={() => handleCheckboxChange('connu_amis')}
+              />
+              <span>Amis/Entourage</span>
+            </label>
+            
+            <label className="checkbox-item">
+              <input
+                type="checkbox"
+                checked={formData.connu_autres}
+                onChange={() => handleCheckboxChange('connu_autres')}
+              />
+              <span>Autres</span>
+            </label>
+            
+            {formData.connu_autres && (
+              <input
+                type="text"
+                className="precision-input"
+                placeholder="À préciser..."
+                value={formData.connu_autres_precision}
+                onChange={handlePrecisionChange}
+              />
+            )}
+          </div>
         </div>
 
         <button 

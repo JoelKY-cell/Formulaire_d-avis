@@ -140,6 +140,7 @@
   padding: 15px;
   border-radius: 8px;
   border-left: 4px solid #667eea;
+  margin-bottom: 15px;
 }
 
 .avis-suggestions h4 {
@@ -152,6 +153,39 @@
   margin: 0;
   color: #666;
   line-height: 1.5;
+}
+
+.avis-discovery {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #28a745;
+}
+
+.avis-discovery h4 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 1rem;
+}
+
+.discovery-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.discovery-tag {
+  background: #e8f5e8;
+  color: #28a745;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.discovery-tag.none {
+  background: #f8f9fa;
+  color: #6c757d;
 }
 
 @media (max-width: 768px) {
